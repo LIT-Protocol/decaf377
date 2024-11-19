@@ -103,6 +103,14 @@ impl Neg for Element {
     }
 }
 
+impl Neg for &Element {
+    type Output = Element;
+
+    fn neg(self) -> Self::Output {
+        Element { inner: -self.inner }
+    }
+}
+
 impl<'b> MulAssign<&'b Fr> for Element {
     // Scalar multiplication is performed through the implementation
     // of `MulAssign` on `ProjectiveDecaf377` which is a type alias for

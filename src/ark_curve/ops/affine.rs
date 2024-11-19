@@ -101,6 +101,14 @@ impl Neg for AffinePoint {
     }
 }
 
+impl Neg for &AffinePoint {
+    type Output = AffinePoint;
+
+    fn neg(self) -> Self::Output {
+        AffinePoint { inner: -self.inner }
+    }
+}
+
 impl<'b> MulAssign<&'b Fr> for AffinePoint {
     fn mul_assign(&mut self, point: &'b Fr) {
         let mut p: Projective<Decaf377EdwardsConfig> = self.inner.into();

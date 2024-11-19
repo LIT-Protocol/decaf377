@@ -54,6 +54,17 @@ impl Neg for Fr {
     }
 }
 
+impl Neg for &Fr {
+    type Output = Fr;
+
+    #[inline]
+    #[must_use]
+    fn neg(self) -> Self::Output {
+        let neg = self.neg();
+        neg
+    }
+}
+
 impl<'a> AddAssign<&'a Self> for Fr {
     #[inline]
     fn add_assign(&mut self, other: &Self) {
