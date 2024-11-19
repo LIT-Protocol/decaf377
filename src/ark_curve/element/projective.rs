@@ -3,6 +3,7 @@ use core::hash::Hash;
 
 use ark_ff::Zero;
 use ark_std::fmt::{Display, Formatter, Result as FmtResult};
+use subtle::{ConditionallySelectable, Choice};
 
 use zeroize::Zeroize;
 
@@ -136,5 +137,16 @@ impl core::iter::Sum<Self> for Element {
 impl<'a> core::iter::Sum<&'a Element> for Element {
     fn sum<I: Iterator<Item = &'a Self>>(iter: I) -> Self {
         iter.fold(Self::zero(), core::ops::Add::add)
+    }
+}
+
+impl ConditionallySelectable for Element {
+    fn conditional_select(a: &Self, b: &Self, choice: Choice) -> Self {
+        let mut out = a.clone();
+        out.inner.x.conditional_assign(&b.inner.x, choice);
+        out.inner.y.conditional_assign(&b.inner.y, choice);
+        out.inner.t.conditional_assign(&b.inner.t, choice);
+        out.inner.z.conditional_assign(&b.inner.z, choice);
+        out
     }
 }

@@ -3,6 +3,7 @@ use core::hash::Hash;
 use crate::ark_curve::element::EdwardsAffine;
 use ark_std::fmt::{Display, Formatter, Result as FmtResult};
 use ark_std::Zero;
+use subtle::{Choice, ConditionallySelectable};
 
 use zeroize::Zeroize;
 
@@ -70,5 +71,14 @@ impl Display for AffinePoint {
 impl Zeroize for AffinePoint {
     fn zeroize(&mut self) {
         self.inner.zeroize()
+    }
+}
+
+impl ConditionallySelectable for AffinePoint {
+    fn conditional_select(a: &Self, b: &Self, choice: Choice) -> Self {
+        let mut out = a.clone();
+        out.inner.x.conditional_assign(&b.inner.x, choice);
+        out.inner.y.conditional_assign(&b.inner.y, choice);
+        out
     }
 }

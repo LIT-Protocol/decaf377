@@ -4,6 +4,7 @@ use core::{
     iter::{Product, Sum},
     ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub, SubAssign},
 };
+use subtle::{Choice, ConditionallySelectable};
 
 use crate::Fr;
 
@@ -327,5 +328,17 @@ impl core::fmt::Debug for Fr {
         write!(f, "Fr(0x{})", unsafe {
             core::str::from_utf8_unchecked(&hex_chars)
         })
+    }
+}
+
+impl ConditionallySelectable for Fr {
+    fn conditional_select(a: &Self, b: &Self, choice: Choice) -> Self {
+        let lhs = a.to_le_limbs();
+        let rhs = b.to_le_limbs();
+        let mut result = [0u64; 4];
+        for i in 0..4 {
+            result[i] = u64::conditional_select(&lhs[i], &rhs[i], choice);
+        }
+        Self::from_le_limbs(result)
     }
 }
