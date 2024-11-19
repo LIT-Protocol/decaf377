@@ -3,7 +3,7 @@ use core::hash::Hash;
 
 use ark_ff::Zero;
 use ark_std::fmt::{Display, Formatter, Result as FmtResult};
-use subtle::{ConditionallySelectable, Choice};
+use subtle::{Choice, ConditionallySelectable};
 
 use zeroize::Zeroize;
 

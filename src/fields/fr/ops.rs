@@ -61,8 +61,7 @@ impl Neg for &Fr {
     #[inline]
     #[must_use]
     fn neg(self) -> Self::Output {
-        let neg = self.neg();
-        neg
+        -*self
     }
 }
 

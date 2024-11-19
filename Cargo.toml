@@ -9,19 +9,20 @@ description = "A prime-order group designed for use in SNARKs over BLS12-377"
 edition = "2021"
 license = "MIT OR Apache-2.0"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
+blake2 = { version = "0.10", optional = true }
+elliptic-curve = { version = "0.13", default-features = false, features = ["arithmetic", "bits", "ff", "group", "hash2curve"], optional = true }
+gennaro-dkg = { version = "1.0.0-rc1", optional = true }
 # no-alloc, no-std
 cfg-if = "1.0"
 hex = { version = "=0.4.3", default-features = false }
 subtle = { version = "2.6", default-features = false }
 rand_core = { version = "0.6", default-features = false }
-zeroize = { version = "1.7", default-features = false }
+zeroize = { version = "1.8", default-features = false }
 # no-std
 num-bigint = { version = "0.4.4", optional = true, default-features = false }
 # std
-hashbrown = { version = "0.14.3", optional = true }
+hashbrown = { version = "0.15", optional = true }
 ark-relations = { version = "0.4", optional = true }
 ark-r1cs-std = { version = "0.4", optional = true }
 ark-std = { version = "0.4", optional = true }
@@ -38,7 +39,7 @@ once_cell = { version = "1.8", optional = true, default-features = false }
 # a default feature of std - without the ark-std std feature, decaf377 doesn't
 # compile
 [features]
-default = ["arkworks"]
+default = ["arkworks", "ecc-group"]
 alloc = ["once_cell/alloc", "zeroize/alloc", "rand_core/alloc"]
 std = [
     "alloc",
@@ -67,12 +68,13 @@ arkworks = [
     "ark-ed-on-bls12-377",
     "hashbrown",
 ]
+ecc-group = ["blake2", "elliptic-curve", "gennaro-dkg"]
 r1cs = ["arkworks", "ark-groth16", "ark-r1cs-std", "ark-relations", "ark-snark"]
 u32_backend = []
 
 [dev-dependencies]
 proptest = "1"
-criterion = { version = "0.3", features = ["html_reports"] }
+criterion = { version = "0.5", features = ["html_reports"] }
 rand_core = { version = "0.6.3", features = ["getrandom"] }
 rand_chacha = "0.3"
 anyhow = { version = "1.0" }

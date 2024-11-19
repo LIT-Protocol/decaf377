@@ -5,6 +5,8 @@ use crate::EncodingError;
 
 #[cfg(feature = "arkworks")]
 pub mod arkworks;
+#[cfg(feature = "ecc-group")]
+mod ecc;
 mod ops;
 pub mod u32;
 

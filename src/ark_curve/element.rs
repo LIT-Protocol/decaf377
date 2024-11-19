@@ -8,6 +8,8 @@ use crate::{
 };
 
 pub mod affine;
+#[cfg(feature = "ecc-group")]
+mod ecc;
 pub mod projective;
 
 pub use affine::AffinePoint;
