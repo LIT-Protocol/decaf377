@@ -1,9 +1,10 @@
 use core::borrow::Borrow;
 use core::hash::Hash;
-
+use ark_ec::CurveGroup;
 use ark_ff::Zero;
 use ark_std::fmt::{Display, Formatter, Result as FmtResult};
-use subtle::{Choice, ConditionallySelectable};
+use elliptic_curve::group::GroupEncoding;
+use subtle::{Choice, ConditionallySelectable, ConstantTimeEq};
 
 use zeroize::Zeroize;
 
@@ -148,5 +149,11 @@ impl ConditionallySelectable for Element {
         out.inner.t.conditional_assign(&b.inner.t, choice);
         out.inner.z.conditional_assign(&b.inner.z, choice);
         out
+    }
+}
+
+impl ConstantTimeEq for Element {
+    fn ct_eq(&self, other: &Self) -> Choice {
+        self.to_bytes().ct_eq(&other.to_bytes())
     }
 }
