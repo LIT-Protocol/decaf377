@@ -1,8 +1,10 @@
-use core::borrow::Borrow;
-use core::hash::Hash;
 use ark_ec::CurveGroup;
 use ark_ff::Zero;
+use ark_serialize::CanonicalSerialize;
 use ark_std::fmt::{Display, Formatter, Result as FmtResult};
+use core::borrow::Borrow;
+use core::hash::Hash;
+#[cfg(features = "ecc-group")]
 use elliptic_curve::group::GroupEncoding;
 use subtle::{Choice, ConditionallySelectable, ConstantTimeEq};
 
@@ -154,6 +156,14 @@ impl ConditionallySelectable for Element {
 
 impl ConstantTimeEq for Element {
     fn ct_eq(&self, other: &Self) -> Choice {
-        self.to_bytes().ct_eq(&other.to_bytes())
+        let mut lhs_bytes = [0u8; 32];
+        self.serialize_compressed(&mut lhs_bytes[..])
+            .expect("serialization to succeed");
+        let mut rhs_bytes = [0u8; 32];
+        other
+            .serialize_compressed(&mut rhs_bytes[..])
+            .expect("serialization to succeed");
+
+        lhs_bytes.ct_eq(&rhs_bytes)
     }
 }
