@@ -1,4 +1,4 @@
-use crate::fields::fr::N_8;
+use crate::fields::fr::{N_64, N_8};
 use crate::Fr;
 use elliptic_curve::ff::{FieldBits, PrimeFieldBits};
 use elliptic_curve::{ff, Field, PrimeField};
@@ -11,15 +11,44 @@ impl ConstantTimeEq for Fr {
     }
 }
 
-impl PrimeFieldBits for Fr {
-    type ReprBits = [u64; 4];
+#[cfg(target_pointer_width = "32")]
+const MODULUS_LIMBS32: [u32; 8] = [
+    0x80191d5f, 0xb96c13a2, 0xa365b5fe, 0x529318f6, 0x475f6bb0, 0x982d95d4, 0x661fd4c5, 0x04ab371d,
+];
 
+impl PrimeFieldBits for Fr {
+    #[cfg(target_pointer_width = "64")]
+    type ReprBits = [u64; 4];
+    #[cfg(target_pointer_width = "32")]
+    type ReprBits = [u32; 8];
+
+    #[cfg(target_pointer_width = "64")]
     fn to_le_bits(&self) -> FieldBits<Self::ReprBits> {
         FieldBits::new(self.to_le_limbs())
     }
+    #[cfg(target_pointer_width = "32")]
+    fn to_le_bits(&self) -> FieldBits<Self::ReprBits> {
+        let le_bytes = self.to_bytes_le();
+        let mut out = [0u32; 8];
+        for i in 0..8 {
+            out[i] = u32::from_le_bytes([
+                le_bytes[8 * i],
+                le_bytes[8 * i + 1],
+                le_bytes[8 * i + 2],
+                le_bytes[8 * i + 3],
+            ]);
+        }
+        FieldBits::new(out)
+    }
 
+    #[cfg(target_pointer_width = "64")]
     fn char_le_bits() -> FieldBits<Self::ReprBits> {
         FieldBits::new(Self::MODULUS_LIMBS)
+    }
+
+    #[cfg(target_pointer_width = "32")]
+    fn char_le_bits() -> FieldBits<Self::ReprBits> {
+        FieldBits::new(MODULUS_LIMBS32)
     }
 }
 
