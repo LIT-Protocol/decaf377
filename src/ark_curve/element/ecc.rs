@@ -7,7 +7,7 @@ use elliptic_curve::{
     hash2curve::{ExpandMsg, ExpandMsgXmd, Expander},
     Group,
 };
-use gennaro_dkg::{elliptic_curve_tools::SumOfProducts, GroupHasher};
+use gennaro_dkg::GroupHasher;
 use rand_core::RngCore;
 use subtle::{Choice, CtOption};
 
