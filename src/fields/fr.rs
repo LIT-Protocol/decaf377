@@ -11,6 +11,8 @@ mod ops;
 pub mod u32;
 
 // The u64 backend requires arkworks
+#[cfg(feature = "serde")]
+mod serde;
 #[cfg(feature = "arkworks")]
 pub mod u64;
 

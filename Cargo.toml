@@ -34,6 +34,7 @@ ark-ed-on-bls12-377 = { version = "0.4", optional = true }
 ark-groth16 = { version = "0.4", optional = true }
 ark-snark = { version = "0.4", optional = true }
 once_cell = { version = "1.8", optional = true, default-features = false }
+serdect = { version = "0.3.0-rc.0", optional = true }
 
 # This matches what ark-std (a library for no_std compatibility) does, having
 # a default feature of std - without the ark-std std feature, decaf377 doesn't
@@ -70,6 +71,7 @@ arkworks = [
 ]
 ecc-group = ["blake2", "elliptic-curve", "gennaro-dkg"]
 r1cs = ["arkworks", "ark-groth16", "ark-r1cs-std", "ark-relations", "ark-snark"]
+serde = ["serdect"]
 u32_backend = []
 
 [dev-dependencies]
@@ -78,6 +80,8 @@ criterion = { version = "0.5", features = ["html_reports"] }
 rand_core = { version = "0.6.3", features = ["getrandom"] }
 rand_chacha = "0.3"
 anyhow = { version = "1.0" }
+serde_json = "1.0"
+serde_bare = "0.5"
 
 [[test]]
 name = "encoding"

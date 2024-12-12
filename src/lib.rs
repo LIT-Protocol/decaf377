@@ -2,6 +2,9 @@
 //! `decaf377` [instantiates Decaf over the BLS12-377 scalar
 //! field](https://penumbra.zone/crypto/primitives/decaf377.html).
 //!
+
+extern crate alloc;
+
 use cfg_if::cfg_if;
 
 pub mod fields;
