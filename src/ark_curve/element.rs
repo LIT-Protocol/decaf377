@@ -1,11 +1,10 @@
-use ark_ec::{AffineRepr, CurveGroup, Group, ScalarMul, VariableBaseMSM};
-use ark_serialize::Valid;
-use ark_std::vec::Vec;
-
 use crate::{
     ark_curve::{edwards::EdwardsAffine, Decaf377EdwardsConfig, EdwardsProjective},
     Fq, Fr,
 };
+use ark_ec::{AffineRepr, CurveGroup, Group, ScalarMul, VariableBaseMSM};
+use ark_serialize::Valid;
+use ark_std::vec::Vec;
 
 pub mod affine;
 #[cfg(feature = "ecc-group")]
@@ -165,5 +164,31 @@ impl From<&AffinePoint> for Element {
         Self {
             inner: point.inner.into(),
         }
+    }
+}
+
+#[cfg(feature = "serde")]
+impl serdect::serde::Serialize for Element {
+    fn serialize<S>(&self, s: S) -> Result<S::Ok, S::Error>
+    where
+        S: serdect::serde::Serializer,
+    {
+        use elliptic_curve::group::GroupEncoding;
+        let bytes = self.to_bytes();
+        serdect::array::serialize_hex_lower_or_bin(&bytes, s)
+    }
+}
+
+#[cfg(feature = "serde")]
+impl<'de> serdect::serde::Deserialize<'de> for Element {
+    fn deserialize<D>(d: D) -> Result<Self, D::Error>
+    where
+        D: serdect::serde::Deserializer<'de>,
+    {
+        use elliptic_curve::group::GroupEncoding;
+        let mut bytes = [0u8; 32];
+        let _ = serdect::array::deserialize_hex_or_bin::<D>(&mut bytes, d)?;
+        Option::from(Element::from_bytes(&bytes))
+            .ok_or(serdect::serde::de::Error::custom("Invalid encoding"))
     }
 }
