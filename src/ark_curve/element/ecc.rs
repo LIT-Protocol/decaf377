@@ -7,7 +7,6 @@ use elliptic_curve::{
     hash2curve::{ExpandMsg, ExpandMsgXmd, Expander},
     Group,
 };
-use gennaro_dkg::GroupHasher;
 use rand_core::RngCore;
 use subtle::{Choice, CtOption};
 
@@ -60,7 +59,7 @@ impl GroupEncoding for Element {
     }
 }
 
-impl GroupHasher for Element {
+impl gennaro_dkg::GroupHasher for Element {
     fn hash_to_curve(msg: &[u8]) -> Self {
         const DST: &'static [u8] = b"DECAF377_XMD:BLAKE2B-512_ELL_RO_";
 
@@ -73,5 +72,17 @@ impl GroupHasher for Element {
         let two = Fq::from_le_bytes_mod_order(&uniform_bytes);
 
         Element::hash_to_curve(&one, &two)
+    }
+}
+
+impl frost_dkg::ScalarHash for Fr {
+    fn hash_to_scalar(msg: &[u8]) -> Self {
+        const DST: &'static [u8] = b"DECAF377_XMD:BLAKE2B-512_RO_NUL_";
+
+        let mut expander = ExpandMsgXmd::<Blake2b512>::expand_message(&[msg], &[DST], 64)
+            .expect("expander creation to succeed");
+        let mut uniform_bytes = [0u8; 64];
+        expander.fill_bytes(&mut uniform_bytes);
+        Fr::from_le_bytes_mod_order(&uniform_bytes)
     }
 }
