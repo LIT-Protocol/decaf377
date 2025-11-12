@@ -9,6 +9,11 @@ authors = [
 description = "A prime-order group designed for use in SNARKs over BLS12-377"
 edition = "2024"
 license = "MIT OR Apache-2.0"
+readme = "README.md"
+keywords = ["bls377", "decaf", "penumbra"]
+homepage = "https://crates.io/crates/decaf377_plus"
+documentation = "https://docs.rs/decaf377_plus"
+repository = "https://github.com/LIT-Protocol/decaf377"
 
 [dependencies]
 blake2 = { version = "0.10", optional = true }
