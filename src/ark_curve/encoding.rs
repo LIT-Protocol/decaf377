@@ -6,7 +6,7 @@ use ark_ec::twisted_edwards::TECurveConfig;
 use ark_serialize::{CanonicalDeserialize, CanonicalSerialize, Read, Write};
 
 use crate::ark_curve::{
-    constants::TWO, edwards::Decaf377EdwardsConfig, on_curve::OnCurve, EdwardsProjective, Element,
+    EdwardsProjective, Element, constants::TWO, edwards::Decaf377EdwardsConfig, on_curve::OnCurve,
 };
 use crate::sign::Sign;
 use crate::{EncodingError, Fq};

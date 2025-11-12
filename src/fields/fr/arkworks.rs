@@ -5,7 +5,7 @@ use ark_serialize::{
     CanonicalDeserialize, CanonicalDeserializeWithFlags, CanonicalSerialize,
     CanonicalSerializeWithFlags, Compress, EmptyFlags, Flags, SerializationError, Valid, Validate,
 };
-use ark_std::{rand, str::FromStr, string::ToString, One, Zero};
+use ark_std::{One, Zero, rand, str::FromStr, string::ToString};
 use core::convert::TryInto;
 use core::{
     fmt::{Display, Formatter},

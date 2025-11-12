@@ -3,7 +3,7 @@ use core::ops::{Add, AddAssign, Mul, MulAssign, Neg, Sub, SubAssign};
 use ark_ec::twisted_edwards::Projective;
 
 use crate::{
-    ark_curve::element::AffinePoint, ark_curve::Decaf377EdwardsConfig, ark_curve::Element, Fr,
+    Fr, ark_curve::Decaf377EdwardsConfig, ark_curve::Element, ark_curve::element::AffinePoint,
 };
 
 impl<'a, 'b> Add<&'b AffinePoint> for &'a AffinePoint {

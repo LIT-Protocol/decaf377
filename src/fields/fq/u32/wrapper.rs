@@ -1,7 +1,7 @@
 use subtle::{Choice, ConditionallySelectable, ConstantTimeEq};
 
 use super::{
-    super::{B, N_32, N_64, N_8},
+    super::{B, N_8, N_32, N_64},
     fiat,
 };
 
@@ -19,7 +19,7 @@ impl PartialEq for Fq {
             (false, false) => {
                 let sub = self.sub(other);
                 let mut check_word = 0;
-                fiat::fq_nonzero(&mut check_word, &sub.0 .0);
+                fiat::fq_nonzero(&mut check_word, &sub.0.0);
                 check_word == 0
             }
         }
@@ -30,7 +30,7 @@ impl Eq for Fq {}
 
 impl zeroize::Zeroize for Fq {
     fn zeroize(&mut self) {
-        self.0 .0.zeroize()
+        self.0.0.zeroize()
     }
 }
 
@@ -115,7 +115,7 @@ impl Fq {
     pub const SENTINEL: Self = Self::from_montgomery_limbs([u64::MAX; N_64]);
 
     fn is_sentinel(&self) -> bool {
-        self.0 .0 == Self::SENTINEL.0 .0
+        self.0.0 == Self::SENTINEL.0.0
     }
 
     pub fn square(&self) -> Fq {
@@ -142,7 +142,7 @@ impl Fq {
         fiat::fq_msat(&mut f);
         let mut g: [u32; N + 1] = [0u32; N + 1];
         let mut v: [u32; N] = [0u32; N];
-        let mut r: [u32; N] = Self::ONE.0 .0;
+        let mut r: [u32; N] = Self::ONE.0.0;
         let mut i = 0;
         let mut j = 0;
 
@@ -243,7 +243,7 @@ impl ConditionallySelectable for Fq {
     fn conditional_select(a: &Self, b: &Self, choice: Choice) -> Self {
         let mut out = [0u32; 8];
         for i in 0..8 {
-            out[i] = u32::conditional_select(&a.0 .0[i], &b.0 .0[i], choice);
+            out[i] = u32::conditional_select(&a.0.0[i], &b.0.0[i], choice);
         }
         Self(fiat::FqMontgomeryDomainFieldElement(out))
     }
@@ -251,6 +251,6 @@ impl ConditionallySelectable for Fq {
 
 impl ConstantTimeEq for Fq {
     fn ct_eq(&self, other: &Fq) -> Choice {
-        self.0 .0.ct_eq(&other.0 .0)
+        self.0.0.ct_eq(&other.0.0)
     }
 }

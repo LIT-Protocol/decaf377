@@ -2,19 +2,19 @@
 use core::borrow::Borrow;
 use core::ops::{Add, AddAssign, Sub, SubAssign};
 
-use ark_ec::{twisted_edwards::TECurveConfig, AffineRepr};
+use ark_ec::{AffineRepr, twisted_edwards::TECurveConfig};
 use ark_r1cs_std::{
-    alloc::AllocVar, eq::EqGadget, groups::curves::twisted_edwards::AffineVar, prelude::*, R1CSVar,
+    R1CSVar, alloc::AllocVar, eq::EqGadget, groups::curves::twisted_edwards::AffineVar, prelude::*,
 };
 use ark_relations::ns;
 use ark_relations::r1cs::{ConstraintSystemRef, SynthesisError};
 use ark_std::vec::Vec;
 
-use crate::ark_curve::{
-    constants::ZETA, edwards::EdwardsAffine, r1cs::fqvar_ext::FqVarExtension, r1cs::FqVar,
-    AffinePoint, Decaf377EdwardsConfig, Element,
-};
 use crate::Fq;
+use crate::ark_curve::{
+    AffinePoint, Decaf377EdwardsConfig, Element, constants::ZETA, edwards::EdwardsAffine,
+    r1cs::FqVar, r1cs::fqvar_ext::FqVarExtension,
+};
 
 pub(crate) type Decaf377EdwardsVar = AffineVar<Decaf377EdwardsConfig, FqVar>;
 

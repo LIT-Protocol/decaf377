@@ -4,10 +4,10 @@ use ark_ec::twisted_edwards::TECurveConfig;
 use crate::ark_curve::edwards::{Decaf377EdwardsConfig, EdwardsProjective};
 
 use crate::{
+    Element, Fq,
     ark_curve::constants::{ONE, TWO, ZETA},
     ark_curve::on_curve::OnCurve,
     sign::Sign,
-    Element, Fq,
 };
 
 impl Element {

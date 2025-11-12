@@ -1,8 +1,8 @@
 use core::hash::Hash;
 
 use crate::ark_curve::element::EdwardsAffine;
-use ark_std::fmt::{Display, Formatter, Result as FmtResult};
 use ark_std::Zero;
+use ark_std::fmt::{Display, Formatter, Result as FmtResult};
 use subtle::{Choice, ConditionallySelectable};
 
 use zeroize::Zeroize;

@@ -1,8 +1,8 @@
 use ark_ed_on_bls12_377::Fr as ArkworksFr;
-use ark_ff::{biginteger::BigInt, Field, PrimeField};
+use ark_ff::{Field, PrimeField, biginteger::BigInt};
 use ark_serialize::CanonicalSerialize;
 
-use super::super::{N_64, N_8};
+use super::super::{N_8, N_64};
 
 const N: usize = N_64;
 
@@ -19,7 +19,7 @@ impl Eq for Fr {}
 
 impl zeroize::Zeroize for Fr {
     fn zeroize(&mut self) {
-        self.0 .0.zeroize()
+        self.0.0.zeroize()
     }
 }
 

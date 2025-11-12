@@ -10,7 +10,7 @@ use subtle::{Choice, ConditionallySelectable, ConstantTimeEq};
 
 use zeroize::Zeroize;
 
-use crate::{ark_curve::EdwardsProjective, Fq, Fr};
+use crate::{Fq, Fr, ark_curve::EdwardsProjective};
 
 use super::super::constants::{B_T, B_X, B_Y, B_Z};
 

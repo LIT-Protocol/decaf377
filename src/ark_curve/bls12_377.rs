@@ -1,11 +1,11 @@
 use crate::fields::{fp::Fp, fq::Fq};
 use ark_ec::{
     bls12::{Bls12, Bls12Config, TwistType},
-    models::short_weierstrass::SWCurveConfig,
     models::CurveConfig,
+    models::short_weierstrass::SWCurveConfig,
     short_weierstrass::Affine,
 };
-use ark_ff::{fields::models::fp2::Fp2Config, Field, Fp12Config, Fp2, Fp6, Fp6Config};
+use ark_ff::{Field, Fp2, Fp6, Fp6Config, Fp12Config, fields::models::fp2::Fp2Config};
 
 pub struct F2Config;
 

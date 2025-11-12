@@ -2,7 +2,7 @@ use core::convert::TryInto;
 use hashbrown::HashMap;
 
 use crate::Fq;
-use ark_ff::{BigInteger256, BigInteger64, Field, Zero};
+use ark_ff::{BigInteger64, BigInteger256, Field, Zero};
 use ark_std::boxed::Box;
 use ark_std::vec::Vec;
 use once_cell::sync::Lazy;

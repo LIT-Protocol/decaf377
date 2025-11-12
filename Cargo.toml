@@ -1,22 +1,22 @@
 [package]
-name = "decaf377"
+name = "decaf377_plus"
 version = "0.10.1"
 authors = [
     "Henry de Valence <hdevalence@hdevalence.ca>",
     "redshiftzero <jen@penumbralabs.xyz>",
+    "Mike Lodder <redmike7@gmail.com>",
 ]
 description = "A prime-order group designed for use in SNARKs over BLS12-377"
-edition = "2021"
+edition = "2024"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
 blake2 = { version = "0.10", optional = true }
 elliptic-curve = { version = "0.13", default-features = false, features = ["arithmetic", "bits", "ff", "group", "hash2curve"], optional = true }
-gennaro-dkg = { version = "1.0.0-rc6", default-features = false, optional = true }
-frost-dkg = { version = "0.5.0", default-features = false, optional = true }
+frost-dkg = { version = "0.5.1", default-features = false, optional = true }
 # no-alloc, no-std
 cfg-if = "1.0"
-hex = { version = "=0.4.3", default-features = false }
+hex = { version = "0.4", default-features = false }
 subtle = { version = "2.6", default-features = false }
 rand_core = { version = "0.6", default-features = false }
 zeroize = { version = "1.8", default-features = false }
@@ -70,7 +70,7 @@ arkworks = [
     "ark-ed-on-bls12-377",
     "hashbrown",
 ]
-ecc-group = ["blake2", "elliptic-curve", "gennaro-dkg", "frost-dkg"]
+ecc-group = ["blake2", "elliptic-curve", "frost-dkg"]
 r1cs = ["arkworks", "ark-groth16", "ark-r1cs-std", "ark-relations", "ark-snark"]
 serde = ["serdect"]
 u32_backend = []

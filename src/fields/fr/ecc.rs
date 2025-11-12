@@ -1,7 +1,7 @@
-use crate::fields::fr::{N_64, N_8};
 use crate::Fr;
+use crate::fields::fr::{N_8, N_64};
 use elliptic_curve::ff::{FieldBits, PrimeFieldBits};
-use elliptic_curve::{ff, Field, PrimeField};
+use elliptic_curve::{Field, PrimeField, ff};
 use rand_core::RngCore;
 use subtle::{Choice, ConstantTimeEq, CtOption};
 

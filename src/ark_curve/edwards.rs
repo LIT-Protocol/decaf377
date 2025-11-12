@@ -1,6 +1,6 @@
 use ark_ec::{
-    twisted_edwards::{Affine, MontCurveConfig, Projective, TECurveConfig},
     CurveConfig,
+    twisted_edwards::{Affine, MontCurveConfig, Projective, TECurveConfig},
 };
 
 use crate::ark_curve::constants::{GENERATOR_X, GENERATOR_Y};

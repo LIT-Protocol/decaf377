@@ -1,5 +1,5 @@
 use super::{
-    super::{B, N_32, N_64, N_8},
+    super::{B, N_8, N_32, N_64},
     fiat,
 };
 
@@ -12,7 +12,7 @@ impl PartialEq for Fp {
     fn eq(&self, other: &Self) -> bool {
         let sub = self.sub(other);
         let mut check_word = 0;
-        fiat::fp_nonzero(&mut check_word, &sub.0 .0);
+        fiat::fp_nonzero(&mut check_word, &sub.0.0);
         check_word == 0
     }
 }
@@ -21,7 +21,7 @@ impl Eq for Fp {}
 
 impl zeroize::Zeroize for Fp {
     fn zeroize(&mut self) {
-        self.0 .0.zeroize()
+        self.0.0.zeroize()
     }
 }
 
@@ -128,7 +128,7 @@ impl Fp {
         fiat::fp_msat(&mut f);
         let mut g: [u32; N + 1] = [0u32; N + 1];
         let mut v: [u32; N] = [0u32; N];
-        let mut r: [u32; N] = Self::ONE.0 .0;
+        let mut r: [u32; N] = Self::ONE.0.0;
         let mut i = 0;
         let mut j = 0;
 

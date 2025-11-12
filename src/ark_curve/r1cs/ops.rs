@@ -1,6 +1,6 @@
 use core::ops::{Add, AddAssign, Sub, SubAssign};
 
-use crate::ark_curve::{r1cs::element::ElementVar, Element};
+use crate::ark_curve::{Element, r1cs::element::ElementVar};
 
 use super::lazy::LazyElementVar;
 

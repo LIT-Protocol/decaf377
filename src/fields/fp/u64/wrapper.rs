@@ -2,7 +2,7 @@ use ark_bls12_377::Fq as ArkworksFp;
 use ark_ff::{BigInt, Field, PrimeField};
 use ark_serialize::CanonicalSerialize;
 
-use super::super::{N_64, N_8};
+use super::super::{N_8, N_64};
 
 const N: usize = N_64;
 
@@ -19,7 +19,7 @@ impl Eq for Fp {}
 
 impl zeroize::Zeroize for Fp {
     fn zeroize(&mut self) {
-        self.0 .0.zeroize()
+        self.0.0.zeroize()
     }
 }
 

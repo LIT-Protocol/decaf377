@@ -1,6 +1,6 @@
 use crate::{
-    ark_curve::{edwards::EdwardsAffine, Decaf377EdwardsConfig, EdwardsProjective},
     Fq, Fr,
+    ark_curve::{Decaf377EdwardsConfig, EdwardsProjective, edwards::EdwardsAffine},
 };
 use ark_ec::{AffineRepr, CurveGroup, Group, ScalarMul, VariableBaseMSM};
 use ark_serialize::Valid;

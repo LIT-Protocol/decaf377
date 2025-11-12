@@ -8,11 +8,7 @@ pub trait Sign: core::ops::Neg<Output = Self> + Sized {
     }
 
     fn abs(self) -> Self {
-        if self.is_nonnegative() {
-            self
-        } else {
-            -self
-        }
+        if self.is_nonnegative() { self } else { -self }
     }
 }
 

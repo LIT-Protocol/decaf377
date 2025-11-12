@@ -3,9 +3,9 @@ use ark_serialize::{CanonicalDeserialize, CanonicalSerialize};
 use ark_std::UniformRand;
 use blake2::Blake2b512;
 use elliptic_curve::{
+    Group,
     group::GroupEncoding,
     hash2curve::{ExpandMsg, ExpandMsgXmd, Expander},
-    Group,
 };
 use rand_core::RngCore;
 use subtle::{Choice, CtOption};
@@ -56,22 +56,6 @@ impl GroupEncoding for Element {
         self.serialize_compressed(&mut bytes[..])
             .expect("serialization to succeed");
         bytes
-    }
-}
-
-impl gennaro_dkg::GroupHasher for Element {
-    fn hash_to_curve(msg: &[u8]) -> Self {
-        const DST: &'static [u8] = b"DECAF377_XMD:BLAKE2B-512_ELL_RO_";
-
-        let mut expander = ExpandMsgXmd::<Blake2b512>::expand_message(&[msg], &[DST], 96)
-            .expect("expander creation to succeed");
-        let mut uniform_bytes = [0u8; 48];
-        expander.fill_bytes(&mut uniform_bytes);
-        let one = Fq::from_le_bytes_mod_order(&uniform_bytes);
-        expander.fill_bytes(&mut uniform_bytes);
-        let two = Fq::from_le_bytes_mod_order(&uniform_bytes);
-
-        Element::hash_to_curve(&one, &two)
     }
 }
 

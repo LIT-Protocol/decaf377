@@ -1,9 +1,9 @@
 use ark_ed_on_bls12_377::Fq as ArkworksFq;
-use ark_ff::{biginteger::BigInt, Field, PrimeField};
+use ark_ff::{Field, PrimeField, biginteger::BigInt};
 use ark_serialize::CanonicalSerialize;
 use subtle::{Choice, ConditionallySelectable, ConstantTimeEq};
 
-use super::super::{N_64, N_8};
+use super::super::{N_8, N_64};
 
 const N: usize = N_64;
 
@@ -25,7 +25,7 @@ impl Eq for Fq {}
 
 impl zeroize::Zeroize for Fq {
     fn zeroize(&mut self) {
-        self.0 .0.zeroize()
+        self.0.0.zeroize()
     }
 }
 
@@ -93,7 +93,7 @@ impl Fq {
     pub const SENTINEL: Self = Self::from_montgomery_limbs([u64::MAX; N_64]);
 
     fn is_sentinel(&self) -> bool {
-        self.0 .0 == Self::SENTINEL.0 .0
+        self.0.0 == Self::SENTINEL.0.0
     }
 
     pub fn square(&self) -> Fq {
@@ -135,8 +135,8 @@ impl Fq {
 impl ConditionallySelectable for Fq {
     fn conditional_select(a: &Self, b: &Self, choice: subtle::Choice) -> Self {
         let mut out = [0u64; 4];
-        let a_limbs = a.0 .0 .0;
-        let b_limbs = b.0 .0 .0;
+        let a_limbs = a.0.0.0;
+        let b_limbs = b.0.0.0;
         for i in 0..4 {
             out[i] = u64::conditional_select(&a_limbs[i], &b_limbs[i], choice);
         }
@@ -147,8 +147,8 @@ impl ConditionallySelectable for Fq {
 
 impl ConstantTimeEq for Fq {
     fn ct_eq(&self, other: &Fq) -> Choice {
-        let self_limbs = self.0 .0 .0;
-        let other_limbs = other.0 .0 .0;
+        let self_limbs = self.0.0.0;
+        let other_limbs = other.0.0.0;
         let mut is_equal = true;
         for i in 0..4 {
             is_equal &= self_limbs[i] == other_limbs[i];

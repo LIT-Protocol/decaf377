@@ -1,20 +1,20 @@
 use std::{fs, io::BufWriter, path::PathBuf};
 
-use ark_groth16::{r1cs_to_qap::LibsnarkReduction, Groth16, Proof, ProvingKey, VerifyingKey};
+use ark_groth16::{Groth16, Proof, ProvingKey, VerifyingKey, r1cs_to_qap::LibsnarkReduction};
 use ark_serialize::{CanonicalDeserialize, CanonicalSerialize};
 use once_cell::sync::Lazy;
 use proptest::prelude::*;
 
 use ark_r1cs_std::{
+    ToBitsGadget,
     prelude::{AllocVar, CurveVar, EqGadget},
     uint8::UInt8,
-    ToBitsGadget,
 };
 use ark_relations::r1cs::{ConstraintSynthesizer, ToConstraintField};
 use ark_snark::SNARK;
 use decaf377::{
-    r1cs::{CountConstraints, ElementVar, FqVar},
     Bls12_377, Element, Fq, Fr,
+    r1cs::{CountConstraints, ElementVar, FqVar},
 };
 use rand_core::OsRng;
 

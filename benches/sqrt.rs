@@ -1,5 +1,5 @@
 use ark_ff::{Field, Zero};
-use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion};
+use criterion::{BenchmarkId, Criterion, criterion_group, criterion_main};
 use decaf377::Fq;
 use decaf377::ZETA;
 use rand_chacha::ChaChaRng;

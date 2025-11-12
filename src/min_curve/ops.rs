@@ -1,6 +1,6 @@
 use core::ops::{Add, AddAssign, Mul, MulAssign, Neg, Sub, SubAssign};
 
-use crate::{min_curve::element::Element, Fr};
+use crate::{Fr, min_curve::element::Element};
 
 // Element addition
 

@@ -1,11 +1,11 @@
 use ark_ff::UniformRand;
 use ark_serialize::CanonicalSerialize;
 use ark_std::rand::{
-    distributions::{Distribution, Standard},
     Rng,
+    distributions::{Distribution, Standard},
 };
 
-use crate::ark_curve::{edwards::EdwardsProjective, AffinePoint, Element, Encoding};
+use crate::ark_curve::{AffinePoint, Element, Encoding, edwards::EdwardsProjective};
 
 impl Distribution<Element> for Standard {
     #[inline]

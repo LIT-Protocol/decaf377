@@ -2,14 +2,14 @@
 use core::borrow::Borrow;
 
 use ark_ec::AffineRepr;
-use ark_r1cs_std::{alloc::AllocVar, eq::EqGadget, prelude::*, R1CSVar};
+use ark_r1cs_std::{R1CSVar, alloc::AllocVar, eq::EqGadget, prelude::*};
 use ark_relations::r1cs::{ConstraintSystemRef, SynthesisError};
 use ark_std::vec::Vec;
 
-use crate::ark_curve::r1cs::{lazy::LazyElementVar, FqVar};
-use crate::ark_curve::{edwards::EdwardsAffine, r1cs::inner::ElementVar as InnerElementVar};
-use crate::ark_curve::{AffinePoint, Element};
 use crate::Fq;
+use crate::ark_curve::r1cs::{FqVar, lazy::LazyElementVar};
+use crate::ark_curve::{AffinePoint, Element};
+use crate::ark_curve::{edwards::EdwardsAffine, r1cs::inner::ElementVar as InnerElementVar};
 
 use super::inner::Decaf377EdwardsVar;
 
