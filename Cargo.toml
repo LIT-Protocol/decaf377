@@ -13,7 +13,7 @@ license = "MIT OR Apache-2.0"
 blake2 = { version = "0.10", optional = true }
 elliptic-curve = { version = "0.13", default-features = false, features = ["arithmetic", "bits", "ff", "group", "hash2curve"], optional = true }
 gennaro-dkg = { version = "1.0.0-rc6", default-features = false, optional = true }
-frost-dkg = { version = "0.3.0", default-features = false, optional = true }
+frost-dkg = { version = "0.5.0", default-features = false, optional = true }
 # no-alloc, no-std
 cfg-if = "1.0"
 hex = { version = "=0.4.3", default-features = false }
